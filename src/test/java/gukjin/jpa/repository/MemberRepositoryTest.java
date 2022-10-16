@@ -1,6 +1,8 @@
-package gukjin.jpa.member;
+package gukjin.jpa.repository;
 
 import gukjin.jpa.domain.Member;
+import gukjin.jpa.repository.MemberRepository;
+import gukjin.jpa.service.MemberService;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,11 +12,14 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MemberRepositoryTest {
 
-    @Autowired MemberRepository memberRepository;
+    @Autowired
+    MemberRepository memberRepository;
 
     @Test
     @Transactional
@@ -25,10 +30,9 @@ public class MemberRepositoryTest {
          member.setName("memberA");
          //when
          Long saveId = memberRepository.save(member);
-         Member findMember = memberRepository.find(saveId);
 
          //then
-         Assertions.assertThat(saveId).isEqualTo(findMember.getId());
+         Assertions.assertThat(saveId).isEqualTo(member.getId());
 
      }
 
