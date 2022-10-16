@@ -1,5 +1,6 @@
 package gukjin.jpa.member;
 
+import gukjin.jpa.domain.Member;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,10 +22,11 @@ public class MemberRepositoryTest {
     public void testMember() throws Exception{
          //given
          Member member = new Member();
-         member.setUsername("memberA");
+         member.setName("memberA");
          //when
          Long saveId = memberRepository.save(member);
          Member findMember = memberRepository.find(saveId);
+
          //then
          Assertions.assertThat(saveId).isEqualTo(findMember.getId());
 

@@ -1,5 +1,6 @@
 package gukjin.jpa.member;
 
+import gukjin.jpa.domain.Member;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
