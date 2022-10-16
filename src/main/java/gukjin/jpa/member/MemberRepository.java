@@ -1,4 +1,4 @@
-package gukjin.jpalecturefirst.member;
+package gukjin.jpa.member;
 
 import org.springframework.stereotype.Repository;
 
