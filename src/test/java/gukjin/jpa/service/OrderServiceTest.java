@@ -83,6 +83,7 @@ public class OrderServiceTest {
         assertEquals("취소된 갯수만큼 재고를 원복한다", 10, item.getStockQuantity());
     }
 
+
     private Book createBook(int bookQuantity, String name, int price) {
         Book book = new Book();
         book.setStockQuantity(bookQuantity);
