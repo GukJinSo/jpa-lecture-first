@@ -1,6 +1,8 @@
 package gukjin.jpa.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.jms.JmsProperties;
 
@@ -12,6 +14,7 @@ import java.util.List;
 @Entity
 @Table(name = "ORDERS")
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 
     @Id @GeneratedValue
