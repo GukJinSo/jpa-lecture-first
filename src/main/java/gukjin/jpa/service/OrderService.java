@@ -11,6 +11,9 @@ import gukjin.jpa.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.w3c.dom.stylesheets.LinkStyle;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -46,9 +49,23 @@ public class OrderService {
      * 주문 취소
      */
     @Transactional
-    public void orderCancel(Long memberId, Order orderId){
+    public void orderCancel(Long orderId){
        // 엔티티 조회
-       Member member = memberRepository.findOne()
+       Order order = orderRepository.findOne(orderId);
+       order.cancel();
     }
+    /***
+     * 조회
+     */
+    public Order findOne(Long orderId) {
+        return orderRepository.findOne(orderId);
+    }
+
+    /***
+     * 검색
+     */
+//    public List<Order> findOrders(OrderSearch orderSearch){
+//        return orderRepository.findAll(orderSearch);
+//    }
 
 }
