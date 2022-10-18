@@ -8,6 +8,7 @@ import gukjin.jpa.domain.item.Item;
 import gukjin.jpa.repository.ItemRepository;
 import gukjin.jpa.repository.MemberRepository;
 import gukjin.jpa.repository.OrderRepository;
+import gukjin.jpa.repository.OrderSearch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,8 +65,8 @@ public class OrderService {
     /***
      * 검색
      */
-//    public List<Order> findOrders(OrderSearch orderSearch){
-//        return orderRepository.findAll(orderSearch);
-//    }
+    public List<Order> findOrders(OrderSearch orderSearch){
+        return orderRepository.findAllByCriteria(orderSearch);
+    }
 
 }
