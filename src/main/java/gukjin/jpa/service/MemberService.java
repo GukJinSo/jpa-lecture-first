@@ -1,5 +1,6 @@
 package gukjin.jpa.service;
 
+import gukjin.jpa.api.MemberApiController;
 import gukjin.jpa.domain.Member;
 import gukjin.jpa.repository.MemberRepository;
 import lombok.AllArgsConstructor;
@@ -43,5 +44,11 @@ public class MemberService {
 
     public Member findOne(Long memberId){
         return memberRepository.findOne(memberId);
+    }
+
+    @Transactional
+    public void update(Long id, String name) {
+        Member findMember = memberRepository.findOne(id);
+        findMember.setName(name);
     }
 }
