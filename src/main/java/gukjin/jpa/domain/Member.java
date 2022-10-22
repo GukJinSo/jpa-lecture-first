@@ -20,6 +20,7 @@ public class Member {
 
     private Address address;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 
