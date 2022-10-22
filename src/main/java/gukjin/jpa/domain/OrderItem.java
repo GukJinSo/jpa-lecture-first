@@ -1,5 +1,6 @@
 package gukjin.jpa.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import gukjin.jpa.domain.item.Item;
 import lombok.AccessLevel;
 import lombok.Getter;
