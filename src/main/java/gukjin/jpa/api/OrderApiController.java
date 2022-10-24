@@ -11,6 +11,7 @@ import gukjin.jpa.repository.order.simplequery.OrderSimpleQueryRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.PublicKey;
@@ -53,6 +54,14 @@ public class OrderApiController {
                 .stream().map(order -> new OrderDto(order)).collect(Collectors.toList());
     }
 
+    @GetMapping("/api/v3.1/orders")
+    public List<OrderDto> ordersV3_page(
+            @RequestParam(name = "offset", defaultValue = "0") int offset,
+            @RequestParam(name = "limit", defaultValue = "10") int limit) {
+        return orderRepository.findAllWithMemberDelivery(offset, limit)
+                .stream().map(order -> new OrderDto(order)).collect(Collectors.toList());
+    }
+
     @Getter
     static class OrderDto{
         private Long orderId;
@@ -75,11 +84,13 @@ public class OrderApiController {
 
     @Getter
     static class OrderItemDto{
+        private Long orderItemId;
         private String itemName;
         private int orderPrice;
         private int count;
 
         public OrderItemDto(OrderItem orderItem){
+            orderItemId = orderItem.getId();
             itemName = orderItem.getItem().getName();
             orderPrice = orderItem.getOrderPrice();
             count = orderItem.getCount();
