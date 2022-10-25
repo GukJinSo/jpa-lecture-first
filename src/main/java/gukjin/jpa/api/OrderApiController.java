@@ -76,6 +76,11 @@ public class OrderApiController {
         return orderQueryRepository.findMap();
     }
 
+    @GetMapping("/api/v6/orders")
+    public List<OrderQueryDto> ordersV6() {
+        return orderQueryRepository.findFlat();
+    }
+
     @Getter
     static class OrderDto{
         private Long orderId;

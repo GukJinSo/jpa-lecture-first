@@ -1,9 +1,13 @@
 package gukjin.jpa.repository.order.query;
 
+import gukjin.jpa.domain.Address;
+import gukjin.jpa.domain.OrderStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,6 +25,25 @@ public class OrderQueryRepository {
             o.setOrderItems(orderItems);
         });
         return orders;
+    }
+
+    public List<OrderQueryDto> findFlat(){
+        String jpql = "select new gukjin.jpa.repository.order.query.OrderFlatDto(o.id, m.name, o.status, d.address, o.orderDate, i.name, oi.count, oi.orderPrice)" +
+                " from Order o" +
+                " join o.member m" +
+                " join o.delivery d" +
+                " join o.orderItems oi" +
+                " join oi.item i";
+        List<OrderFlatDto> flats = em.createQuery(jpql, OrderFlatDto.class).getResultList();
+        return flats.stream()
+                .collect(Collectors.groupingBy(o -> new OrderQueryDto(o.getOrderId(), o.getName(), o.getOrderDate(), o.getOrderStatus(), o.getAddress()),
+                        Collectors.mapping(o -> new OrderItemQueryDto(o.getOrderId(), o.getItemName(), o.getOrderPrice(), o.getCount()), Collectors.toList())
+                )).entrySet().stream()
+                .map(e -> {
+                    System.out.println(e.getValue());
+                    return new OrderQueryDto(e.getKey().getOrderId(), e.getKey().getName(), e.getKey().getOrderDate(), e.getKey().getOrderStatus(), e.getKey().getAddress(), e.getValue());
+                })
+                .collect(Collectors.toList());
     }
 
     public List<OrderQueryDto> findMap(){
