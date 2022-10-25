@@ -7,6 +7,8 @@ import gukjin.jpa.domain.OrderStatus;
 import gukjin.jpa.domain.item.Item;
 import gukjin.jpa.repository.OrderRepository;
 import gukjin.jpa.repository.OrderSearch;
+import gukjin.jpa.repository.order.query.OrderQueryDto;
+import gukjin.jpa.repository.order.query.OrderQueryRepository;
 import gukjin.jpa.repository.order.simplequery.OrderSimpleQueryRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +26,8 @@ import java.util.stream.Collectors;
 public class OrderApiController {
 
     private final OrderRepository orderRepository;
-    private final OrderSimpleQueryRepository orderQueryRepository;
+    private final OrderSimpleQueryRepository orderSimpleQueryRepository;
+    private final OrderQueryRepository orderQueryRepository;
 
 
     /**
@@ -60,6 +63,17 @@ public class OrderApiController {
             @RequestParam(name = "limit", defaultValue = "10") int limit) {
         return orderRepository.findAllWithMemberDelivery(offset, limit)
                 .stream().map(order -> new OrderDto(order)).collect(Collectors.toList());
+    }
+
+    @GetMapping("/api/v4/orders")
+    public List<OrderQueryDto> ordersV4() {
+        return orderQueryRepository.findOrderQueryDtos();
+    }
+
+
+    @GetMapping("/api/v5/orders")
+    public List<OrderQueryDto> ordersV5() {
+        return orderQueryRepository.findMap();
     }
 
     @Getter
