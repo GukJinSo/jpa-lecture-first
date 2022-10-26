@@ -2,6 +2,7 @@ package gukjin.jpa.api;
 
 import gukjin.jpa.domain.Address;
 import gukjin.jpa.domain.Member;
+import gukjin.jpa.repository.MemberRepository;
 import gukjin.jpa.service.MemberService;
 import lombok.*;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 public class MemberApiController {
 
     private final MemberService memberService;
+    private final MemberRepository memberRepository;
 
     @GetMapping("/api/v1/members")
     public List<Member> membersV1(){
@@ -74,7 +76,8 @@ public class MemberApiController {
 
     @Data @NoArgsConstructor
     static class CreateMemberRequest{
-        @NotEmpty private String name;
+        @NotEmpty
+        private String name;
     }
 
     @Data @AllArgsConstructor

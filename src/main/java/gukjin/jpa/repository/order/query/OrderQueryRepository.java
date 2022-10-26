@@ -2,6 +2,7 @@ package gukjin.jpa.repository.order.query;
 
 import gukjin.jpa.domain.Address;
 import gukjin.jpa.domain.OrderStatus;
+import gukjin.jpa.domain.QOrder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
